@@ -5,6 +5,38 @@
 
 using namespace std;
 
+ScaledPts GEScaleSyst::GEPt(int Year, float pt, float eta, float phi, int charge){
+
+  ScaledPts out;
+  out.ScaledPt = pt;
+  out.ScaeldPt_Up = pt;
+  out.ScaeldPt_Down = pt;
+
+  Year = Year-2000;
+
+  int i_nominal = Year * 100;
+  double Pt_Central = GEScaleCorrPt(i_nominal, pt, eta, phi, charge, false);
+
+  double sum = 0.;
+  for(int s=0; s<50; s++){
+    int scopy = Year * 10000 + s;
+    sum += GEScaleCorrPt(scopy, pt, eta, phi, charge, false);
+  }
+
+  double avgpt = sum/50.;
+  double diff = fabs(avgpt-pt);
+
+  //cout << "[GEScaleSyst::GEPt] Pt_Central = " << Pt_Central << endl;
+  //cout << "[GEScaleSyst::GEPt] diff = " << diff << endl;
+
+  out.ScaledPt = Pt_Central;
+  out.ScaeldPt_Up = Pt_Central + diff;
+  out.ScaeldPt_Down = Pt_Central - diff;
+
+  return out;
+
+}
+
 float GEScaleSyst::GetGEScaleKappa(int icopy, float eta, float phi)
 {
   int the_eta = -999;

@@ -1,3 +1,13 @@
+#ifndef ScaledPts_h
+#define ScaledPts_h
+
+struct ScaledPts {
+  double ScaledPt, ScaeldPt_Up, ScaeldPt_Down;
+};
+
+#endif
+
+
 #ifndef HighPtMuonAnalysis_GEScale_H
 #define HighPtMuonAnalysis_GEScale_H
 // #pragma once
@@ -7,10 +17,14 @@
 
 #include "TLorentzVector.h"
 
+using namespace std;
+
 class GEScaleSyst {
   public:
     GEScaleSyst();
     virtual ~GEScaleSyst();
+
+    ScaledPts GEPt(int Year, float pt, float eta, float phi, int charge);
 
     float GEScaleCorrPt(int icopy, float pt, float eta, float phi, int charge, bool doOpp = false);
     TLorentzVector GEScaleCorrLvec(int icopy, float pt, float eta, float phi, int charge, bool doOpp = false);
