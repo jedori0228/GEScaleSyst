@@ -67,24 +67,25 @@ float GEScaleSyst::GetGEScaleKappa(int icopy, float eta, float phi)
 float GEScaleSyst::GEScaleCorrPt(int icopy, float pt, float eta, float phi, int charge, bool doOpp)
 {
   if( _matrix.find(icopy) == _matrix.end() ) {
-    cout << "ERROR   GEScaleSyst::GEScaleCorrPt   invalid icopy= " << icopy << endl;
-    return -1e9;
+    cerr << "ERROR   GEScaleSyst::GEScaleCorrPt   invalid icopy= " << icopy << endl;
+    exit(EXIT_FAILURE);
+    return pt;
   }
   if( pt < 0 ) {
-    cout << "ERROR   GEScaleSyst::GEScaleCorrPt   invalid muon pt= " << pt << endl;
-    return -1e9;
+    //cout << "ERROR   GEScaleSyst::GEScaleCorrPt   invalid muon pt= " << pt << endl;
+    return pt;
   }
   if( fabs(eta) > 2.4 ) {
-    cout << "ERROR   GEScaleSyst::GEScaleCorrPt   invalid muon eta= " << eta << endl;
-    return -1e9;
+    //cout << "ERROR   GEScaleSyst::GEScaleCorrPt   invalid muon eta= " << eta << endl;
+    return pt;
   }
   if( fabs(phi) > M_PI ) {
-    cout << "ERROR   GEScaleSyst::GEScaleCorrPt   invalid muon phi= " << phi << endl;
-    return -1e9;
+    //cout << "ERROR   GEScaleSyst::GEScaleCorrPt   invalid muon phi= " << phi << endl;
+    return pt;
   }
   if( fabs(charge) != 1 ) {
-    cout << "ERROR   GEScaleSyst::GEScaleCorrPt   invalid muon charge= " << charge << endl;
-    return -1e9;
+    //cout << "ERROR   GEScaleSyst::GEScaleCorrPt   invalid muon charge= " << charge << endl;
+    return pt;
   }
 
   float kappa = GetGEScaleKappa(icopy, eta, phi);
