@@ -160,7 +160,8 @@ void GEScaleSyst::AddNewMatrix( int new_copy, std::map<int, std::map<int, float>
 }
 
 
-GEScaleSyst::GEScaleSyst()
+GEScaleSyst::GEScaleSyst() :
+verbose(0)
 {
   // no correction
   _matrix[0][0][0] =  0.0;  _matrix[0][0][1] = 0.0;  _matrix[0][0][2] =  0.0;
